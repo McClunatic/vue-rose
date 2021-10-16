@@ -1,7 +1,13 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 
-defineProps<{ msg: string }>()
+interface Props {
+  msg?: string
+}
+
+withDefaults(defineProps<Props>(), {
+  msg: 'Hello Vue 3 + TypeScript + Vite' 
+})
 
 const count = ref(0)
 </script>
