@@ -1,8 +1,23 @@
 import { mount } from '@vue/test-utils'
+import { createRouter, createWebHistory } from 'vue-router'
 import App from './App.vue'
 
-test('App <img> contains Vue logo', () => {
-  const wrapper = mount(App)
+const router = createRouter({
+  history: createWebHistory(),
+  routes: [{
+    path: '/',
+    component: {
+      template: '<div>O kaeri nasai</div>'
+    }
+  }]
+})
 
-  expect(wrapper.get('img').attributes('alt')).toBe('Vue logo')
+test('App uses router-view', async () => {
+  router.push('/')
+  await router.isReady()
+
+  const wrapper = mount(App, {
+    global: { plugins: [router] }
+  })
+  expect(wrapper.html()).toContain('O kaeri nasai')
 })
